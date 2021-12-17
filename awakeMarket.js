@@ -99,7 +99,7 @@ function tagChanged(){
 	let tags = "";
 	for (var i = 0; i < tagSelects.length; i++) {
 		let value = tagSelects[i].options[tagSelects[i].selectedIndex].value;
-		let operator = tagSelects[i].getAttribute("operator")??"";
+		let operator = tags==""?"":tagSelects[i].getAttribute("operator")??"";
 		if(value && value!=""){
 			tags+=operator+value;
 		}
