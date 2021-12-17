@@ -87,6 +87,32 @@ function brandChanged(selectElement){
 	addProducts(productsContainer);
 }
 
+function addTagSelect(){
+	let tagSelects = document.getElementsByClassName('am-tag-selector');
+	for (var i = 0; i < tagSelects.length; i++) {
+		tagSelects[i].setAttribute("onchange","tagChanged()");
+	}
+}
+
+function tagChanged(){
+	let tagSelects = document.getElementsByClassName('am-tag-selector');
+	let tags = "";
+	for (var i = 0; i < tagSelects.length; i++) {
+		let value = tagSelects[i].options[tagSelects[i].selectedIndex].value;
+		let operator = tagSelects[i].getAttribute("operator")??"";
+		if(value && value!=""){
+			tags+=operator+value;
+		}
+	}
+
+	let querySelector = tagSelects[0].getAttribute("productsContainer");
+	let productsContainer = document.querySelector(querySelector);
+	productsContainer.setAttribute("tags",tags);
+	clearProducts(productsContainer);
+	offset=0;
+	addProducts(productsContainer);
+}
+
 function addProducts(productsContainer){
 	if(am_loadedContainers.includes(productsContainer)){return;}
 	let skip = productsContainer.getAttribute('skip')==null?false:true;
