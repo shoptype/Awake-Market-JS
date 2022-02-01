@@ -118,6 +118,7 @@ function addProducts(productsContainer){
 	let skip = productsContainer.getAttribute('skip')==null?false:true;
 	let removeTemplate = productsContainer.getAttribute('removeTemplate')==null?false:true && !(productsContainer.getAttribute('loadmore')=='true');
 	if(skip){return;}
+	let shopUrl = productsContainer.getAttribute('myshop');
 	let productTemplate = productsContainer.querySelector(".product-container");
 	productTemplate.style.display = "none";
 	let searchString = productsContainer.getAttribute('searchstring');
@@ -138,7 +139,9 @@ function addProducts(productsContainer){
 	params += category?"&category="+category:"";
 	params += tags?"&tags="+tags:"";
 	params += vendorId?"&vendorId="+vendorId:"";
-	fetchProducts(params, productsContainer, productTemplate);
+	let url = shopUrl??`${am_backend}/platforms/${am_platformId}/products?${params}`;
+
+	fetchProducts(url, productsContainer, productTemplate);
 	if(removeTemplate){
 		productTemplate.remove();
 	}
@@ -272,8 +275,8 @@ function am_updateProductQuant(optionsSelector){
 
 }
 
-function fetchProducts(params, productsContainer, productTemplate){
-	fetch(am_backend + `/platforms/${am_platformId}/products?` + params)
+function fetchProducts(url, productsContainer, productTemplate){
+	fetch(url)
 		.then(response=>{
 			if (response.status >= 200 && response.status < 300) {
 				return Promise.resolve(response.json());
