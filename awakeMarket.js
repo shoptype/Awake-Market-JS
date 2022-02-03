@@ -139,8 +139,8 @@ function addProducts(productsContainer){
 	params += category?"&category="+category:"";
 	params += tags?"&tags="+tags:"";
 	params += vendorId?"&vendorId="+vendorId:"";
-	let url = shopUrl??`${am_backend}/platforms/${am_platformId}/products?${params}`;
-
+	let url = shopUrl??`${am_backend}/platforms/${am_platformId}/products`;
+	url += "?" + params;
 	fetchProducts(url, productsContainer, productTemplate);
 	if(removeTemplate){
 		productTemplate.remove();
