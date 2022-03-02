@@ -331,8 +331,7 @@ function createProduct(productTemplate, product){
 	}	
 	let productLink = newProduct.querySelector(".am-product-link");
 	if(productLink){
-		productLink.href = productPage.replace("{{productId}}", product.id);
-		productLink.href = productPage.replace("{{tid}}", product.tid??"");
+		productLink.href = productPage.replace("{{productId}}", product.id).replace("{{tid}}", product.tid??"");
 	}
 	return newProduct;
 }
